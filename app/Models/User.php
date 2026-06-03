@@ -13,21 +13,26 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 {
     use Authenticatable, Authorizable, HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var string[]
-     */
+    protected $table = 'users';
+    protected $primaryKey = 'id_user';
+
+    // 🌟 PERUBAHAN/TAMBAHAN: Matikan timestamps karena tabel 'users' di SQL-mu tidak punya kolom created_at & updated_at
+    public $timestamps = false;
+
     protected $fillable = [
-        'name', 'email',
+        'nama_lengkap',
+        'username',
+        'password',
+        'role',
     ];
 
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var string[]
-     */
     protected $hidden = [
         'password',
     ];
+
+    // Relasi: Satu user bisa mencatat banyak transaksi
+    public function transaksi()
+    {
+        return $this->hasMany(Transaksi::class, 'id_user', 'id_user');
+    }
 }
