@@ -10,3 +10,4 @@ $router->get('/', function () use ($router) {
 // Tulis manual dan polos tanpa group prefix
 $router->post('api/login', 'AuthController@login');
 $router->post('/api/login', 'AuthController@login'); // Kita pasang dua-duanya biar kalau salah satu gak kebaca, yang satunya lolos!
+$router->get('api/dashboard', 'DashboardController@index');
